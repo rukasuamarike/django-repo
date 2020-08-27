@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ object_list }}
+{% for i in object_list %}
+<p>{{ i.id }}: <a href = '../{{ i.get_abs_url }}'>{{ i.user }} {{ i.ip }} {{ i.time }}</p>
+
+{% endfor %}
+{% endblock %}

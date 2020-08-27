@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--<form method = 'POST'> {% csrf_token %}-->
+
+<form action = . method="POST" >{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save"/>
+
+</form>
+{% load l10n %}
+
+
+<p id="user">{{request.user}}</p>
+<p id="time"></p>
+<script>
+console.log("hit")
+
+var formobj=document.body.children[1]
+formobj.children[1].children[1].value = document.getElementById('user').innerHTML;
+formobj.children[2].children[1].value = document.getElementById('time').innerHTML;
+
+var req = new XMLHttpRequest();
+req.addEventListener("load", getIp);
+req.open("GET", "https://api.ipify.org");
+req.send();
+function getIp(){
+console.log(req.responseText);
+var ipp = req.responseText;
+
+formobj.children[3].children[1].value = req.responseText;
+var req2 = new XMLHttpRequest();
+req2.addEventListener("load", getTime);
+req2.open("GET", "http://worldtimeapi.org/api/ip");
+req2.send();
+}
+
+
+
+function getTime(){
+var ans = JSON.parse(this.response)
+console.log(ans);
+var t= ans.datetime
+var tm = t.indexOf('T')
+var mm = ans.datetime.substring(tm+1,tm+6)
+formobj.children[2].children[1].value = ans.datetime.substring(0,tm)+" "+mm;
+
+}
+
+
+
+</script>
+{% endblock %}

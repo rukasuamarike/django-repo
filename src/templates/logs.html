@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>log</title>
+{% endblock %}
+
+{% block content %}
+<body style:"background:rgb(20,20,20);">
+    <h1>logs</h1>
+    <ul>
+        {% for item in log_list %}
+        <li>{{item}}</li>
+         {% endfor %}
+    </ul>
+</body>
+{% endblock %}
